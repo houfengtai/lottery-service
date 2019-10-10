@@ -26,6 +26,14 @@
     and day(create_time) = day(now())
     order by create_time desc
   </select>
+  <select id="selectCountByPhoneAndActivityId" resultType="java.lang.Integer">
+    select
+    count(1)
+    from t_lottery_log
+    where `phone` = #{phone,jdbcType=VARCHAR}
+    and activity_id = #{activityId,jdbcType=INTEGER}
+    and day(create_time) = day(now())
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_lottery_log
     where id = #{id,jdbcType=INTEGER}

@@ -16,5 +16,7 @@ public interface LotteryLogMapper {
 
     List<LotteryLog> selectByPhoneAndActivityId(@Param(value = "phone") String phone,@Param(value = "activityId") Integer activityId);
 
+    int selectCountByPhoneAndActivityId(@Param(value = "phone") String phone,@Param(value = "activityId") Integer activityId);
+
     int updateByPrimaryKeySelective(LotteryLog record);
 }

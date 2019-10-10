@@ -1,14 +1,8 @@
 package com.suwen.lottery.service;
 
 import com.suwen.framework.core.redis.service.RedisService;
-import com.suwen.lottery.dao.ActivityMapper;
-import com.suwen.lottery.dao.LotteryLogMapper;
-import com.suwen.lottery.dao.TrophyMapper;
-import com.suwen.lottery.dao.UserMapper;
-import com.suwen.lottery.domain.Activity;
-import com.suwen.lottery.domain.LotteryLog;
-import com.suwen.lottery.domain.Trophy;
-import com.suwen.lottery.domain.User;
+import com.suwen.lottery.dao.*;
+import com.suwen.lottery.domain.*;
 import com.suwen.framework.core.commons.constants.Constants;
 import com.suwen.framework.core.commons.exception.CustomException;
 import com.suwen.framework.core.commons.resp.Response;
@@ -35,20 +29,23 @@ public class LotteryServiceImpl implements LotteryService {
     @Autowired
     private LotteryLogMapper lotteryLogMapper;
     @Autowired
+    private UserDefaultTrophyMapper userDefaultTrophyMapper;
+    @Autowired
     private RedisService redisService;
 
     @Override
     public Response<String> lottery(Integer userId) throws CustomException {
-        //获取用户信息
-        User user = userMapper.selectByPrimaryKey(userId);
-        if(ObjectUtil.isNull(user))  return new Response(Constants.RESP_STATUS_BADREQUEST, "您尚未获得抽奖机会");
-        if(user.getTime() == 0)  return new Response(Constants.RESP_STATUS_BADREQUEST, "您的抽奖机会已用完啦");
-
         //获取活动项目
         Activity activity =  activityMapper.selectByStatus(1);
         if(ObjectUtil.isNull(activity)) return new Response(Constants.RESP_STATUS_BADREQUEST, "目前没有进行活动");
         if(ObjectUtil.isNotNull(activity.getStartTime()) && activity.getStartTime().getTime() > new Date().getTime()) return new Response(Constants.RESP_STATUS_BADREQUEST, "活动尚未开始");
         if(ObjectUtil.isNotNull(activity.getEndTime()) && activity.getEndTime().getTime() < new Date().getTime()) return new Response(Constants.RESP_STATUS_BADREQUEST, "活动已结束");
+
+        //获取用户信息
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(ObjectUtil.isNull(user))  return new Response(Constants.RESP_STATUS_BADREQUEST, "您尚未获得抽奖机会");
+        if(user.getTime() == 0)  return new Response(Constants.RESP_STATUS_BADREQUEST, "您的抽奖机会已用完啦");
+
 
         //获取奖品列表
         List<Trophy> list = trophyMapper.selectByActivityId(activity.getId());
@@ -59,6 +56,27 @@ public class LotteryServiceImpl implements LotteryService {
 
         //根据概率获取奖项id（抽奖结果）
         Integer prizeId = getRand(collect);
+
+        //获取已抽奖次数
+        int lotteryLogNum = lotteryLogMapper.selectCountByPhoneAndActivityId(user.getPhone(),activity.getId());
+
+        //查询该手机号是否有内定奖品
+        UserDefaultTrophy userDefaultTrophy = userDefaultTrophyMapper.selectByPhoneAndActivityId(user.getPhone(),activity.getId());
+        if(ObjectUtil.isNotNull(userDefaultTrophy)
+                && userDefaultTrophy.getPrizeTime() > 0
+                && lotteryLogNum == (ObjectUtil.isNull(userDefaultTrophy.getHowManyTime())?lotteryLogNum:(userDefaultTrophy.getHowManyTime()-1))){
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getId() == userDefaultTrophy.getTrophyId()) {
+                    prizeId = i;
+                    break;
+                }
+            }
+            UserDefaultTrophy udt = new UserDefaultTrophy();
+            udt.setId(userDefaultTrophy.getId());
+            udt.setPrizeTime(userDefaultTrophy.getPrizeTime() - 1);
+            userDefaultTrophyMapper.updateByPrimaryKeySelective(udt);
+        }
+
         //如果有设置奖品数量,判断该奖项数量是否发完
         if(ObjectUtil.isNotNull(list.get(prizeId).getAmount()) && list.get(prizeId).getAmount() == 0){
             //如果已经发完，则设置该概率为0，并从新抽奖

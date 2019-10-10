@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suwen.lottery.dao.UserDefaultTrophyMapper" >
+  <resultMap id="BaseResultMap" type="com.suwen.lottery.domain.UserDefaultTrophy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="trophy_id" property="trophyId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="prize_time" property="prizeTime" jdbcType="INTEGER" />
+    <result column="how_many_time" property="howManyTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, trophy_id, activity_id, prize_time, how_many_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_default_trophy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPhoneAndActivityId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_default_trophy
+    where activity_id = #{activityId,jdbcType=INTEGER}
+    and phone = #{phone,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user_default_trophy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.suwen.lottery.domain.UserDefaultTrophy" >
+    insert into t_user_default_trophy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="trophyId != null" >
+        trophy_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="prizeTime != null" >
+        prize_time,
+      </if>
+      <if test="howManyTime != null" >
+        how_many_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="trophyId != null" >
+        #{trophyId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeTime != null" >
+        #{prizeTime,jdbcType=INTEGER},
+      </if>
+      <if test="howManyTime != null" >
+        #{howManyTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.suwen.lottery.domain.UserDefaultTrophy" >
+    update t_user_default_trophy
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="trophyId != null" >
+        trophy_id = #{trophyId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeTime != null" >
+        prize_time = #{prizeTime,jdbcType=INTEGER},
+      </if>
+      <if test="howManyTime != null" >
+        how_many_time = #{howManyTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
