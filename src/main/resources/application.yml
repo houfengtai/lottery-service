@@ -1,0 +1,52 @@
+#startup
+server:
+    port: 8081
+    tomcat:
+        remote_ip_header: x-forwarded-for
+        protocol_header: x-forwarded-proto
+        port-header: X-Forwarded-Port
+    use-forward-headers: true
+#Spring
+spring:
+    application:
+        name: lottery-service
+#profile
+    profiles:
+        active: test
+#datasource
+    datasource:
+        # druid
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    jmx:
+      default-domain: service-test
+    http:
+      multipart:
+        max-file-size: 2Mb
+        max-request-size: 10MB
+
+#mybatis
+mybatis:
+    mapper-locations: classpath:com/huafeng/**/**.xml
+    type-aliases-package: classpath:com.huafeng.**.domain
+
+#log
+logging:
+    config: classpath:logback.xml
+
+
+
+

@@ -1,0 +1,78 @@
+
+spring:
+  datasource:
+     name: dev
+     url: jdbc:mysql://192.168.3.185:3306/sw_db?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+     username: root
+     password: root
+
+  redis:
+     # Redis数据库索引（默认为0）
+     database: 0
+     # Redis服务器地址
+     host: 192.168.3.185
+     # Redis服务器连接端口
+     port: 6379
+     # Redis服务器连接密码（默认为空）
+     password:
+     # 连接池最大连接数（使用负值表示没有限制）
+     pool:
+       max-active: 500
+       # 连接池最大阻塞等待时间（使用负值表示没有限制）
+       max-wait: -1
+       # 连接池中的最大空闲连接
+       max-idle: 100
+       # 连接池中的最小空闲连接
+       min-idle: 0
+       # 逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1
+       min-evictable-idle-time-millis: 10000
+       # 在每次空闲连接回收器线程(如果有)运行时检查的连接数量
+       num-tests-per-eviction-run: 50
+       # 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位.
+       # 如果设置为非正数,则不运行空闲连接回收器线程
+       time-between-eviction-runs-millis: 300000
+       # 是否在从池中取出连接前进行检验,如果检验失败,
+       # 则从池中去除连接并尝试取出另一个.
+       test-on-borrow: true
+       # 连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,
+       # 则连接将被从池中去除.设置为true后如果要生效,validationQuery参数必须设置为非空字符串
+       test-while-idle: true
+     # 连接超时时间（毫秒）
+     timeout: 10000
+
+  data:
+      mongodb:
+          username: huafeng
+          password: huafeng123456
+          host: localhost
+          repositories:
+            enabled: true
+          database: huafeng_db
+          port: 27917
+
+wechatPay:
+    appid: xxx
+    mch_id: xxx
+    key: xxx
+    notify_url: xxx
+    SIGNTYPE: MD5
+    TRADETYPE: JSAPI
+    pay_url: https://api.mch.weixin.qq.com/pay/unifiedorder
+    appsecret: xxx
+
+aliCloud:
+    endpoint: xxxx
+    accessKeyId: xxxx
+    accessKeySecret: xxxx
+    bucketName: xxxx
+    imageHost: xxxx
+
+aliSMS:
+    accessKeyId: xxx
+    accessKeySecret: xxxx
+
+mongoImageUrl: http://test.suwen8.com/sw_db_pics/
+
+jPush:
+  appKey: xxxx
+  appSecret: xxxx

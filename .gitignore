@@ -1,0 +1,8 @@
+/target
+.idea
+*.iml
+/docker/apps
+/logs/
+/src/main/resources/application-prod.yml
+/src/main/resources/application-test.yml
+/catalina.base_IS_UNDEFINED
