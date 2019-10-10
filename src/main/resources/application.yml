@@ -1,6 +1,6 @@
 #startup
 server:
-    port: 8081
+    port: 8106
     tomcat:
         remote_ip_header: x-forwarded-for
         protocol_header: x-forwarded-proto
