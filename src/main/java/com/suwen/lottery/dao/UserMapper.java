@@ -16,4 +16,6 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(User record);
 
+    int cleanUser();
+
 }

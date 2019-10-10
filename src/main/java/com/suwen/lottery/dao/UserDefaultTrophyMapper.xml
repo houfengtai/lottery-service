@@ -29,6 +29,9 @@
     delete from t_user_default_trophy
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="cleanUserDefaultTrophy">
+    delete from t_user_default_trophy
+  </delete>
   <insert id="insertSelective" parameterType="com.suwen.lottery.domain.UserDefaultTrophy" >
     insert into t_user_default_trophy
     <trim prefix="(" suffix=")" suffixOverrides="," >

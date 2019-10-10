@@ -27,6 +27,9 @@
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="cleanUser">
+    delete from t_user
+  </delete>
   <insert id="insertSelective" parameterType="com.suwen.lottery.domain.User" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >

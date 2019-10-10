@@ -16,4 +16,5 @@ public interface UserDefaultTrophyMapper {
 
     int updateByPrimaryKeySelective(UserDefaultTrophy record);
 
+    int cleanUserDefaultTrophy();
 }
