@@ -29,6 +29,10 @@
     delete from t_user_default_trophy
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByTrophyId" parameterType="java.lang.Integer" >
+    delete from t_user_default_trophy
+    where trophy_id = #{trophyId,jdbcType=INTEGER}
+  </delete>
   <delete id="cleanUserDefaultTrophy">
     delete from t_user_default_trophy
   </delete>

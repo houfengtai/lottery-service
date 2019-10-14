@@ -14,6 +14,8 @@ public interface TrophyMapper {
 
     Trophy selectByPrimaryKey(Integer id);
 
+    List<Trophy> selectAll();
+
     List<Trophy> selectByActivityId(@Param(value = "activityId") Integer activityId);
 
     int updateByPrimaryKeySelective(Trophy record);

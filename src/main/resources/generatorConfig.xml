@@ -65,7 +65,7 @@
         <!-- pojo 实体生成器 -->
         <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
         <!-- schema即为数据库名 可不写 -->
-        <table  tableName="t_user_default_trophy" domainObjectName="UserDefaultTrophy"
+        <table  tableName="t_account" domainObjectName="Account"
                 enableSelectByPrimaryKey="true"
                 enableInsert="true"
                 enableUpdateByPrimaryKey="true"

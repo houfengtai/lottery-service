@@ -4,6 +4,8 @@ import com.suwen.lottery.domain.Activity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface ActivityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -13,6 +15,8 @@ public interface ActivityMapper {
     Activity selectByPrimaryKey(Integer id);
 
     Activity selectByStatus(@Param(value = "status") Integer status);
+
+    List<Activity> selectAll();
 
     int updateByPrimaryKeySelective(Activity record);
 }

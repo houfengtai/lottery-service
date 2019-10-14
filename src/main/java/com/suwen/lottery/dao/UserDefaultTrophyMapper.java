@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDefaultTrophyMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByTrophyId(@Param(value = "trophyId") Integer trophyId);
+
     int insertSelective(UserDefaultTrophy record);
 
     UserDefaultTrophy selectByPrimaryKey(Integer id);

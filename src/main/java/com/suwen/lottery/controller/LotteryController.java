@@ -32,14 +32,6 @@ public class LotteryController extends BaseController {
         return lotteryService.lottery(Integer.parseInt(getUserId()));
     }
 
-    @PostMapping("/setting/phone")
-    @ApiOperation(value = "设置根据手机号码设置抽奖次数")
-    @ApiImplicitParam(name = "settingPhone", value = "phone:手机号码;num:次数;seatNo:座位号;", paramType = "body", dataType = "SettingPhone")
-    @IgnoreSecurity
-    public Response<String> settingPhone(@RequestBody @Valid SettingPhone settingPhone) throws CustomException {
-        return lotteryService.settingPhone(settingPhone);
-    }
-
     @PostMapping("/verify")
     @ApiOperation(value = "绑定手机")
     @ApiImplicitParam(name = "verifyPhone", value = "phone:手机号码;randomId:页面随机数;", paramType = "body", dataType = "VerifyPhone")
