@@ -17,6 +17,16 @@
     from t_lottery_log
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_lottery_log
+    where 1=1
+    and (`phone` like #{phone,jdbcType=VARCHAR} or #{phone} IS NULL)
+    and (activity_id = #{activityId,jdbcType=INTEGER} or #{activityId} is null)
+    and (day(create_time) = day(now()))
+    order by create_time desc
+  </select>
   <select id="selectByPhoneAndActivityId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
