@@ -16,10 +16,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -51,6 +48,17 @@ public class LoginController extends BaseController {
         JSONObject json = new JSONObject();
         json.put("tokenId",tokenId);
         json.put("userInfo",account);
+        return Response.returnData(json);
+    }
+
+    @GetMapping("/verify/{tokenId}")
+    @ApiOperation(value = "校验tokenId是否有效")
+    @ApiImplicitParam(name = "tokenId", value = "", paramType = "path", dataType = "String")
+    @IgnoreSecurity
+    public Response<String> login (@PathVariable String tokenId) throws CustomException {
+        boolean result = redisService.verifyHasKey("token:" + tokenId);
+        JSONObject json = new JSONObject();
+        json.put("result",result);
         return Response.returnData(json);
     }
 }
