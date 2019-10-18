@@ -97,4 +97,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateAll2Stop">
+    update t_activity set status = 0
+  </update>
 </mapper>

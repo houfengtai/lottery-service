@@ -47,6 +47,9 @@ public class ActivityController extends BaseController {
     @ApiOperation(value = "启动活动")
     @ApiImplicitParam(name = "id", value = "id:活动id;", paramType = "path", dataType = "int")
     public Response<String> start (@PathVariable Integer id) throws CustomException {
+        //启动前先暂停所有活动
+        activityMapper.updateAll2Stop();
+
         Activity activity = new Activity();
         activity.setId(id);
         activity.setStatus(1);

@@ -18,5 +18,7 @@ public interface ActivityMapper {
 
     List<Activity> selectAll();
 
+    int updateAll2Stop();
+
     int updateByPrimaryKeySelective(Activity record);
 }
