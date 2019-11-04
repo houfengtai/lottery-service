@@ -32,7 +32,7 @@ public class UserTrophyLogController {
     })
     public Response<String> add (@RequestParam(value = "phone", required = false) String phone,
                                  @RequestParam(value = "activityId", required = false) Integer activityId) throws CustomException {
-        String p = ObjectUtil.isNull(phone)?phone:"%"+phone+"%";
+        String p = ObjectUtil.isNull(phone)?null:"%"+phone+"%";
         List<LotteryLog> list = lotteryLogMapper.selectAll(p,activityId);
         return Response.returnData(list);
     }
