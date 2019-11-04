@@ -33,6 +33,13 @@ public class ActivityController extends BaseController {
         activityMapper.insertSelective(activity);
         return Response.returnData("保存成功!");
     }
+    @PutMapping("/activity")
+    @ApiOperation(value = "修改活动")
+    @ApiImplicitParam(name = "activityEntity", value = "id,activityName:活动名称;startTime:活动开始时间;endTime:活动结束时间;remark:活动简介，活动主语事项;", paramType = "body", dataType = "ActivityEntity")
+    public Response<String> put (@RequestBody @Valid Activity activity) throws CustomException{
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return Response.returnData("保存成功!");
+    }
     @PutMapping("/activity/stop/{id}")
     @ApiOperation(value = "暂停活动")
     @ApiImplicitParam(name = "id", value = "id:活动id;", paramType = "path", dataType = "int")
