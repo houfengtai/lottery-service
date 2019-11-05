@@ -23,6 +23,12 @@
     from t_user
     where `phone` = #{phone,jdbcType=VARCHAR}
   </select>
+  <select id="selectListByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where `phone` like #{phone,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
