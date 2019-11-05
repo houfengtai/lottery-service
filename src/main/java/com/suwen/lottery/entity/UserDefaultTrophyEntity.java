@@ -3,6 +3,7 @@ package com.suwen.lottery.entity;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class UserDefaultTrophyEntity {
@@ -10,13 +11,13 @@ public class UserDefaultTrophyEntity {
 
     @NotBlank(message = "手机号码不能为空")
     private String phone;
-    @NotBlank(message = "奖品Id不能为空")
+    @NotNull(message = "奖品Id不能为空")
     private Integer trophyId;
-    @NotBlank(message = "活动Id不能为空")
+    @NotNull(message = "活动Id不能为空")
     private Integer activityId;
-    @NotBlank(message = "可中奖次数不能为空")
+    @NotNull(message = "可中奖次数不能为空")
     private Integer prizeTime;
-    @NotBlank(message = "第几次才中奖不能为空")
+    @NotNull(message = "第几次才中奖不能为空")
     private Integer howManyTime;
 
 }
