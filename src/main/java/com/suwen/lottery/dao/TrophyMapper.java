@@ -14,7 +14,7 @@ public interface TrophyMapper {
 
     Trophy selectByPrimaryKey(Integer id);
 
-    List<Trophy> selectAll();
+    List<Trophy> selectAll(@Param(value = "activityId") Integer activityId);
 
     List<Trophy> selectByActivityId(@Param(value = "activityId") Integer activityId);
 

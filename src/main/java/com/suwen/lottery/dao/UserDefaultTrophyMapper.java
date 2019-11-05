@@ -1,8 +1,11 @@
 package com.suwen.lottery.dao;
 
 import com.suwen.lottery.domain.UserDefaultTrophy;
+import com.suwen.lottery.domain.UserDefaultTrophyView;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserDefaultTrophyMapper {
@@ -19,4 +22,6 @@ public interface UserDefaultTrophyMapper {
     int updateByPrimaryKeySelective(UserDefaultTrophy record);
 
     int cleanUserDefaultTrophy();
+
+    List<UserDefaultTrophyView> selectAll();
 }

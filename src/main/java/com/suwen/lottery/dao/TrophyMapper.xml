@@ -20,10 +20,10 @@
     from t_trophy
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
     <include refid="Base_Column_List" />
-    from t_trophy
+    from t_trophy where (`activity_id` = #{activityId,jdbcType=INTEGER} or #{activityId,jdbcType=INTEGER} is null)
     order by seq_no asc
   </select>
   <select id="selectByActivityId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

@@ -29,8 +29,10 @@ public class TrophyController {
 
     @GetMapping("/trophes")
     @ApiOperation(value = "查询所有奖品项")
-    public Response<String> find () throws CustomException{
-        List<Trophy> list = trophyMapper.selectAll();
+    @ApiImplicitParam(name = "activityId", value = "activityId:活动id;", paramType = "query", dataType = "int")
+    public Response<String> find (Integer activityId) throws CustomException{
+
+        List<Trophy> list = trophyMapper.selectAll(ObjectUtil.isNull(activityId)?null:activityId);
         return Response.returnData(list);
     }
 
