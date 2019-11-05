@@ -127,12 +127,12 @@ public class LotteryServiceImpl implements LotteryService {
             user = new User();
             user.setPhone(settingPhone.getPhone());
             user.setTime(settingPhone.getNum());
-            user.setSeatNo(settingPhone.getNum());
+            user.setSeatNo(settingPhone.getSeatNo());
             user.setCreateTime(new Date());
             userMapper.insertSelective(user);
         }else{
             user.setTime(settingPhone.getNum());
-            user.setSeatNo(settingPhone.getNum());
+            user.setSeatNo(settingPhone.getSeatNo());
             userMapper.updateByPrimaryKeySelective(user);
         }
         return Response.returnData("设置成功");
